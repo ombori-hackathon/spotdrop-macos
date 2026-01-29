@@ -12,7 +12,7 @@ struct LoginView: View {
             VStack(spacing: 8) {
                 Image(systemName: "mappin.circle.fill")
                     .font(.system(size: 48))
-                    .foregroundColor(.blue)
+                    .foregroundColor(.accent)
 
                 Text("SpotDrop")
                     .font(.largeTitle)
@@ -27,20 +27,22 @@ struct LoginView: View {
 
             VStack(spacing: 16) {
                 if isRegistering {
-                    TextField("Username", text: $username)
-                        .textFieldStyle(.roundedBorder)
+                    LoginTextField("Username", text: $username)
                 }
 
-                TextField("Email", text: $email)
-                    .textFieldStyle(.roundedBorder)
+                LoginTextField("Email", text: $email)
 
-                SecureField("Password", text: $password)
-                    .textFieldStyle(.roundedBorder)
+                LoginTextField("Password", text: $password, isSecure: true)
 
                 if let error = viewModel.error {
                     Text(error)
                         .font(.caption)
                         .foregroundColor(.red)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.red.opacity(0.1))
+                        .cornerRadius(8)
                 }
 
                 Button(action: {
@@ -54,9 +56,11 @@ struct LoginView: View {
                 }) {
                     if viewModel.isLoading {
                         ProgressView()
+                            .progressViewStyle(.circular)
                             .frame(maxWidth: .infinity)
                     } else {
                         Text(isRegistering ? "Create Account" : "Login")
+                            .fontWeight(.semibold)
                             .frame(maxWidth: .infinity)
                     }
                 }
@@ -70,19 +74,50 @@ struct LoginView: View {
             }) {
                 Text(isRegistering ? "Already have an account? Login" : "Don't have an account? Sign up")
                     .font(.footnote)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.accent)
             }
             .buttonStyle(.plain)
         }
-        .padding(32)
-        .frame(width: 350)
+        .padding(40)
+        .frame(width: 380)
         .background(Color.card)
-        .cornerRadius(16)
+        .cornerRadius(20)
+        .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 10)
+    }
+}
+
+struct LoginTextField: View {
+    let placeholder: String
+    @Binding var text: String
+    var isSecure: Bool = false
+
+    init(_ placeholder: String, text: Binding<String>, isSecure: Bool = false) {
+        self.placeholder = placeholder
+        self._text = text
+        self.isSecure = isSecure
+    }
+
+    var body: some View {
+        Group {
+            if isSecure {
+                SecureField(placeholder, text: $text)
+            } else {
+                TextField(placeholder, text: $text)
+            }
+        }
+        .textFieldStyle(.plain)
+        .padding(14)
+        .background(Color.sidebar)
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.border, lineWidth: 1)
+        )
     }
 }
 
 #Preview {
     LoginView(viewModel: AuthViewModel())
-        .frame(width: 400, height: 500)
+        .frame(width: 500, height: 600)
         .background(Color.background)
 }
