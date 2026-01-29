@@ -1,0 +1,1 @@
+# SpotDrop macOS
