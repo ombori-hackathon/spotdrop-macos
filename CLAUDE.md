@@ -1,5 +1,7 @@
 # SpotDrop macOS
 
+> **CRITICAL: YOU CANNOT MAKE DESTRUCTIVE CHANGES TO THE LOCAL CODEBASE. This includes: git reset --hard, git clean -f, git checkout . on uncommitted work, deleting files/directories without explicit user permission, force pushing, or any operation that could result in loss of local work.**
+
 Native SwiftUI macOS application for adding spots to SpotDrop.
 
 ## Tech Stack
