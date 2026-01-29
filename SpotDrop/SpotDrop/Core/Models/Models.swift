@@ -65,12 +65,11 @@ struct CreateSpotRequest: Codable {
 
 enum SpotCategory: String, CaseIterable, Identifiable {
     case cafe
-    case restaurant
-    case bar
-    case park
-    case museum
+    case viewpoint
+    case activity
     case shop
-    case other
+    case bar
+    case restaurant
 
     var id: String { rawValue }
 
@@ -80,13 +79,12 @@ enum SpotCategory: String, CaseIterable, Identifiable {
 
     var color: String {
         switch self {
-        case .cafe: return "#22C55E"
-        case .restaurant: return "#F97316"
-        case .bar: return "#A855F7"
-        case .park: return "#14B8A6"
-        case .museum: return "#3B82F6"
-        case .shop: return "#EC4899"
-        case .other: return "#6B7280"
+        case .cafe: return "#F59E0B"       // amber
+        case .viewpoint: return "#22C55E"  // green
+        case .activity: return "#3B82F6"   // blue
+        case .shop: return "#EC4899"       // pink
+        case .bar: return "#A855F7"        // purple
+        case .restaurant: return "#EF4444" // red
         }
     }
 }

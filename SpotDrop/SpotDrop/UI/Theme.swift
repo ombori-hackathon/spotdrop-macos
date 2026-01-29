@@ -1,11 +1,21 @@
 import SwiftUI
 
 extension Color {
-    static let background = Color(hex: "#0F172A")
-    static let card = Color(hex: "#1E293B")
-    static let cardHover = Color(hex: "#334155")
-    static let textPrimary = Color.white
-    static let textSecondary = Color(hex: "#94A3B8")
+    // Light theme colors
+    static let background = Color(hex: "#F8FAFC")       // Light gray background
+    static let sidebar = Color(hex: "#F1F5F9")          // Slightly darker sidebar
+    static let card = Color.white                        // White cards
+    static let cardHover = Color(hex: "#F1F5F9")        // Hover state
+    static let border = Color(hex: "#E2E8F0")           // Border color
+
+    // Text colors
+    static let textPrimary = Color(hex: "#1E293B")      // Dark text
+    static let textSecondary = Color(hex: "#64748B")    // Secondary text
+
+    // Accent colors
+    static let accent = Color(hex: "#6366F1")           // hsl(239 84% 67%) - Indigo
+    static let accentLight = Color(hex: "#C084FC")      // Purple/Violet
+    static let accentBackground = Color(hex: "#EEF2FF") // Light indigo background
 
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
@@ -44,17 +54,18 @@ struct CardStyle: ViewModifier {
         content
             .background(Color.card)
             .cornerRadius(12)
+            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
     }
 }
 
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(Color.blue)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+            .background(Color.accent)
             .foregroundColor(.white)
-            .cornerRadius(8)
+            .cornerRadius(10)
             .opacity(configuration.isPressed ? 0.8 : 1.0)
     }
 }
@@ -62,11 +73,11 @@ struct PrimaryButtonStyle: ButtonStyle {
 struct SecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(Color.card)
-            .foregroundColor(.white)
-            .cornerRadius(8)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+            .background(Color.accentBackground)
+            .foregroundColor(.accent)
+            .cornerRadius(10)
             .opacity(configuration.isPressed ? 0.8 : 1.0)
     }
 }
